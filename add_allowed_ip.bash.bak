@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ $USER != "root" ]; then
+	echo -e "Please run this with root privilege"
+	exit -1
+fi
+
+ip=""
+while [ ${#ip} -eq 0 ]; do
+	echo -e "Enter the client's public IP that you want to allow"
+	read ip
+done
+
+ufw enable
+ufw allow from ${ip} to any port [port] proto [protocol]
+ufw disable
+ufw enable

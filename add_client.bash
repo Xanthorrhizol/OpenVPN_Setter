@@ -1,4 +1,8 @@
 #!/bin/bash
+if [ $USER != "root" ]; then
+	echo -e "Please run with root privilege"
+	exit -1
+fi
 dir=$(pwd)
 
 # get user name
@@ -30,3 +34,6 @@ cat ${BASE_CONFIG} \
 	${KEY_DIR}/ta.key \
 	<(echo -e '</tls-auth>') \
 	> ${OUTPUT_DIR}/${user}.ovpn
+
+echo -e "Now the client's ovpn file is created. check the ${OUTPUT_DIR}/${user}.ovpn"
+echo -e "The next step is adding the client's ip to allow list of firewall. Find the public ip of the client and run the add_allowed_ip.bash"
